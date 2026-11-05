@@ -379,16 +379,22 @@ export function SidebarRoot({
       {panels.length > 0 && (
         <nav className={css.panelList} aria-label={t('panels.label')}>
           {panels.filter(({ id }) => id === FIXED_PANEL_ID || !unpinned.includes(id)).map(({ id, label }) => (
-            <PanelRow
-              key={id}
-              id={id}
-              label={label}
-              wide={wide}
-              usePanelInfo={usePanelInfo}
-              selectPanel={selectPanel}
-              trackEntryClick={trackEntryClick}
-              renderSlot={renderSlot}
-            />
+            <div key={id} className={css.panelGroup}>
+              <PanelRow
+                id={id}
+                label={label}
+                wide={wide}
+                usePanelInfo={usePanelInfo}
+                selectPanel={selectPanel}
+                trackEntryClick={trackEntryClick}
+                renderSlot={renderSlot}
+              />
+              {wide && activePanelId === id && (
+                <div className={css.panelSubnav}>
+                  {renderSlot('sidebar.panellist.subnav', { wide, active: true }, { only: id })}
+                </div>
+              )}
+            </div>
           ))}
           {hasEntryActions && (
             <PanelMoreMenu

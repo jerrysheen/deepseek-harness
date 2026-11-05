@@ -34,6 +34,11 @@ declare module '@deepseek-ai/dsh-client-ui-slots' {
      * the sidebar owns the button and resolves its label from list metadata.
      */
     'sidebar.panellist': { kind: 'list'; scope: 'root'; owner: SidebarPanelIconOwnerProps }
+    /**
+     * Nested navigation displayed directly beneath the selected panel row.
+     * Entries are keyed by the parent panel id; the sidebar retains selection and geometry.
+     */
+    'sidebar.panellist.subnav': { kind: 'list'; scope: 'root'; owner: SidebarPanelSubnavOwnerProps }
     /** Rows of the panel list's More menu; the sidebar shows More only while this list has registrations. */
     'sidebar.panellist.actions': { kind: 'list'; scope: 'root'; owner: SidebarPanelActionsOwnerProps }
     /**
@@ -74,6 +79,14 @@ export interface SidebarPanelIconOwnerProps {
   /** Requested square edge in pixels. */
   size: number
   /** Whether this panel is selected in the main column. */
+  active: boolean
+}
+
+/** Layout-only props supplied to the selected panel's nested navigation. */
+export interface SidebarPanelSubnavOwnerProps {
+  /** Nested navigation is visible only in the expanded sidebar. */
+  wide: boolean
+  /** Selected parent panel. Subnavigation does not own global selection. */
   active: boolean
 }
 
@@ -190,6 +203,7 @@ export type SidebarRootComponentProps =
     | 'sidebar.brand.name'
     | 'sidebar.toggle.badge'
     | 'sidebar.panellist'
+    | 'sidebar.panellist.subnav'
     | 'sidebar.panellist.actions'
     | 'sidebar.workspaces'
     | 'sidebar.settings'

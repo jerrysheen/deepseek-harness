@@ -684,3 +684,9 @@
     animation: none;
   }
 }
+
+/* Subnavigation is a native child of the selected panel, never a second sidebar. */
+.panelGroup { display: flex; flex-direction: column; min-width: 0; }
+.panelSubnav { min-width: 0; margin-bottom: 4px; }
+.panelSubnav:empty { display: none; }
+.collapsed .panelGroup { align-items: center; }
